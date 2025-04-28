@@ -48,7 +48,7 @@ class TwilioProvider extends ProviderClass<TwilioCoreVendor> implements TwilioIn
             })
             .post('/', this.vendor.indexHome)
             .post('/webhook', this.vendor.incomingMsg)
-            .get('/tmp', this.vendor.handlerLocalMedia)
+            // .get('/tmp', this.vendor.handlerLocalMedia)
     }
 
     protected afterHttpServerInit(): void {}

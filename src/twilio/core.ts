@@ -73,26 +73,29 @@ export class TwilioCoreVendor extends EventEmitter {
 
         this.emit('message', payload)
         const jsonResponse = JSON.stringify({ body })
-        res.status(200).end(); 
+        //res.status(200).end(); 
+
+        res.end();
+
     }
 
-    /**
-     * Manejar los local media como
-     * C:\\Projects\\bot-restaurante\\tmp\\menu.png
-     * para que puedas ser llevar a una url online
-     * @param req
-     * @param res
-     */
-    public handlerLocalMedia: polka.Middleware = (req, res) => {
-        const query = req.query as { path?: string }
-        const file = query?.path
-        if (!file) return res.end(`path: invalid`)
-        const decryptPath = utils.decryptData(file)
-        const decodeFile = decodeURIComponent(decryptPath)
-        if (!existsSync(decodeFile)) return res.end(`not exits: ${decodeFile}`)
-        const fileStream = createReadStream(decodeFile)
-        const mimeType = mime.lookup(decodeFile) || 'application/octet-stream'
-        res.writeHead(200, { 'Content-Type': mimeType })
-        fileStream.pipe(res)
-    }
+    // /**
+    //  * Manejar los local media como
+    //  * C:\\Projects\\bot-restaurante\\tmp\\menu.png
+    //  * para que puedas ser llevar a una url online
+    //  * @param req
+    //  * @param res
+    //  */
+    // public handlerLocalMedia: polka.Middleware = (req, res) => {
+    //     const query = req.query as { path?: string }
+    //     const file = query?.path
+    //     if (!file) return res.end(`path: invalid`)
+    //     const decryptPath = utils.decryptData(file)
+    //     const decodeFile = decodeURIComponent(decryptPath)
+    //     if (!existsSync(decodeFile)) return res.end(`not exits: ${decodeFile}`)
+    //     const fileStream = createReadStream(decodeFile)
+    //     const mimeType = mime.lookup(decodeFile) || 'application/octet-stream'
+    //     res.writeHead(200, { 'Content-Type': mimeType })
+    //     fileStream.pipe(res)
+    // }
 }

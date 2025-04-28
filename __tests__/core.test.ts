@@ -301,62 +301,62 @@ describe('#TwilioCoreVendor', () => {
         })
     })
 
-    describe('#handlerLocalMedia', () => {
-        test('should stream the file with correct Content-Type if the file exists', () => {
-            // Arrange
-            const validFilePath = 'valid/file/path'
-            const mockRequest: any = {
-                query: {},
-            }
-            mockRequest.query.path = validFilePath
-            const mockMimeType = 'image/jpeg'
-            const mockFileStream = { pipe: jest.fn() } as any
+    // describe('#handlerLocalMedia', () => {
+    //     test('should stream the file with correct Content-Type if the file exists', () => {
+    //         // Arrange
+    //         const validFilePath = 'valid/file/path'
+    //         const mockRequest: any = {
+    //             query: {},
+    //         }
+    //         mockRequest.query.path = validFilePath
+    //         const mockMimeType = 'image/jpeg'
+    //         const mockFileStream = { pipe: jest.fn() } as any
 
-            const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(true)
-            const createReadStreamSpy = jest.spyOn(fs, 'createReadStream').mockReturnValue(mockFileStream)
-            jest.spyOn(mime, 'lookup').mockReturnValue(mockMimeType)
+    //         const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(true)
+    //         const createReadStreamSpy = jest.spyOn(fs, 'createReadStream').mockReturnValue(mockFileStream)
+    //         jest.spyOn(mime, 'lookup').mockReturnValue(mockMimeType)
 
-            // Act
-            twilioCoreVendor.handlerLocalMedia(mockRequest as any, mockResponse as any, mockNext)
+    //         // Act
+    //         twilioCoreVendor.handlerLocalMedia(mockRequest as any, mockResponse as any, mockNext)
 
-            // Assert
-            expect(existsSyncSpy).toHaveBeenCalled()
-            expect(createReadStreamSpy).toHaveBeenCalled()
-            expect(mime.lookup).toHaveBeenCalled()
-            expect(mockResponse.writeHead).toHaveBeenCalledWith(200, { 'Content-Type': mockMimeType })
-            expect(mockFileStream.pipe).toHaveBeenCalledWith(mockResponse)
-        })
+    //         // Assert
+    //         expect(existsSyncSpy).toHaveBeenCalled()
+    //         expect(createReadStreamSpy).toHaveBeenCalled()
+    //         expect(mime.lookup).toHaveBeenCalled()
+    //         expect(mockResponse.writeHead).toHaveBeenCalledWith(200, { 'Content-Type': mockMimeType })
+    //         expect(mockFileStream.pipe).toHaveBeenCalledWith(mockResponse)
+    //     })
 
-        test('should respond with "path: invalid" if no file path is provided in the query', () => {
-            // Act
-            twilioCoreVendor.handlerLocalMedia(mockRequest as any, mockResponse as any, mockNext)
+    //     test('should respond with "path: invalid" if no file path is provided in the query', () => {
+    //         // Act
+    //         twilioCoreVendor.handlerLocalMedia(mockRequest as any, mockResponse as any, mockNext)
 
-            // Assert
-            expect(mockResponse.end).toHaveBeenCalledWith('path: invalid')
-        })
+    //         // Assert
+    //         expect(mockResponse.end).toHaveBeenCalledWith('path: invalid')
+    //     })
 
-        test('should respond with "not exists: {file path}" if the file does not exist', () => {
-            // Arrange
-            const validFilePath = 'valid/file/path'
-            const mockRequest: any = {
-                query: {},
-            }
-            mockRequest.query.path = validFilePath
-            const mockMimeType = 'image/jpeg'
-            const mockFileStream = { pipe: jest.fn() } as any
+    //     test('should respond with "not exists: {file path}" if the file does not exist', () => {
+    //         // Arrange
+    //         const validFilePath = 'valid/file/path'
+    //         const mockRequest: any = {
+    //             query: {},
+    //         }
+    //         mockRequest.query.path = validFilePath
+    //         const mockMimeType = 'image/jpeg'
+    //         const mockFileStream = { pipe: jest.fn() } as any
 
-            const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(false)
-            const createReadStreamSpy = jest.spyOn(fs, 'createReadStream').mockReturnValue(mockFileStream)
-            jest.spyOn(mime, 'lookup').mockReturnValue(mockMimeType)
+    //         const existsSyncSpy = jest.spyOn(fs, 'existsSync').mockReturnValue(false)
+    //         const createReadStreamSpy = jest.spyOn(fs, 'createReadStream').mockReturnValue(mockFileStream)
+    //         jest.spyOn(mime, 'lookup').mockReturnValue(mockMimeType)
 
-            // Act
-            twilioCoreVendor.handlerLocalMedia(mockRequest as any, mockResponse as any, mockNext)
+    //         // Act
+    //         twilioCoreVendor.handlerLocalMedia(mockRequest as any, mockResponse as any, mockNext)
 
-            // Assert
-            expect(existsSyncSpy).toHaveBeenCalled()
-            expect(createReadStreamSpy).not.toHaveBeenCalled()
-            expect(mime.lookup).not.toHaveBeenCalled()
-            expect(mockResponse.end).toHaveBeenCalledWith('not exits: undefined')
-        })
-    })
+    //         // Assert
+    //         expect(existsSyncSpy).toHaveBeenCalled()
+    //         expect(createReadStreamSpy).not.toHaveBeenCalled()
+    //         expect(mime.lookup).not.toHaveBeenCalled()
+    //         expect(mockResponse.end).toHaveBeenCalledWith('not exits: undefined')
+    //     })
+    // })
 })

@@ -1,7 +1,6 @@
 import { ProviderClass } from '@builderbot/bot';
 import type { BotContext, SendOptions } from '@builderbot/bot/dist/types';
 import type { MessageListInstanceCreateOptions } from 'twilio/lib/rest/api/v2010/account/message';
-
 import { TwilioCoreVendor } from './core';
 import type { TwilioInterface } from '../interface/twilio';
 import type { ITwilioProviderARgs, TwilioRequestBody } from '../types';
